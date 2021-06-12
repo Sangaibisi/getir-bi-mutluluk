@@ -3,6 +3,8 @@ package com.emrullah.assessment.getir.controller.rest.home;
 import com.emrullah.assessment.getir.base.dto.auth.AuthRequest;
 import com.emrullah.assessment.getir.base.dto.user.CreateUserRequest;
 import com.emrullah.assessment.getir.base.framework.GenericResponse;
+import com.emrullah.assessment.getir.base.framework.OperationResult;
+import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
 import com.emrullah.assessment.getir.base.service.IUserService;
 import com.emrullah.assessment.getir.base.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +41,14 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createUser(@RequestBody CreateUserRequest request) {
-        _userService.createUser(request);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<GenericResponse<?>> createUser(@RequestBody CreateUserRequest request) {
+        try {
+            _userService.createUser(request);
+            return ResponseEntity.noContent().build();
+        } catch (OperationResultException ore) {
+            return ResponseEntity.status(ore.getOperationResult().getResultCode())
+                                 .body(new GenericResponse<>(ore.getOperationResult()));
+        }
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,7 +67,7 @@ public class HomeController {
             return ResponseEntity.ok().body(new GenericResponse<>("", response));
         }
         catch (BadCredentialsException | UsernameNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericResponse<>(4001, "Email or Password invalid"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericResponse<OperationResult>(OperationResult.createErrorResult("404","Username or password is not valid")));
         }
     }
 

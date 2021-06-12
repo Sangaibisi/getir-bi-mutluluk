@@ -8,6 +8,9 @@ public class GenericResponse<T> implements Serializable {
     private String message = null;
     private T data;
 
+    public GenericResponse() {
+    }
+
     public GenericResponse(T t){
         this.data=t;
     }

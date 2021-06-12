@@ -2,12 +2,13 @@ package com.emrullah.assessment.getir.base.framework;
 
 import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions.*;
 import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
+import org.springframework.http.HttpStatus;
 
 import java.util.Objects;
 
 
 public class OperationResult extends AbstractGenericType {
-    protected OperationResultCodeType resultCode;
+    protected HttpStatus resultCode;
     protected String operationResultCode;
     protected String description;
     protected String transactionId;
@@ -16,13 +17,13 @@ public class OperationResult extends AbstractGenericType {
     public OperationResult() {
     }
 
-    public static OperationResult newInstance(OperationResultCodeType resultCode) {
+    public static OperationResult newInstance(HttpStatus resultCode) {
         OperationResult result = new OperationResult();
         result.setResultCode(resultCode);
         return result;
     }
 
-    public static OperationResult newInstance(OperationResultCodeType resultCode, String transactionId) {
+    public static OperationResult newInstance(HttpStatus resultCode, String transactionId) {
         OperationResult result = new OperationResult();
         result.setResultCode(resultCode);
         result.setTransactionId(transactionId);
@@ -30,13 +31,23 @@ public class OperationResult extends AbstractGenericType {
     }
 
     public static OperationResult createErrorResult(String operationResultCode) {
-        OperationResult result = newInstance(OperationResultCodeType.ERROR);
+        OperationResult result = newInstance(HttpStatus.INTERNAL_SERVER_ERROR);
         result.setOperationResultCode(operationResultCode);
         return result;
     }
 
+    public static OperationResult createErrorResult(HttpStatus operationResultCode) {
+        return newInstance(operationResultCode);
+    }
+
     public static OperationResult createErrorResult() {
-        return newInstance(OperationResultCodeType.ERROR);
+        return newInstance(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public static OperationResult createErrorResult(HttpStatus resultCode, String description) {
+        OperationResult result = createErrorResult(resultCode);
+        result.setDescription(description);
+        return result;
     }
 
     public static OperationResult createErrorResult(String operationResultCode, String description) {
@@ -45,26 +56,14 @@ public class OperationResult extends AbstractGenericType {
         return result;
     }
 
-    public static OperationResult createWarningResult(String operationResultCode) {
-        OperationResult result = newInstance(OperationResultCodeType.WARNING);
-        result.setOperationResultCode(operationResultCode);
-        return result;
-    }
-
-    public static OperationResult createWarningResult(String operationResultCode, String description) {
-        OperationResult result = createWarningResult(operationResultCode);
-        result.setDescription(description);
-        return result;
-    }
-
     public static OperationResult createSuccessResult(String operationResultCode) {
-        OperationResult result = newInstance(OperationResultCodeType.SUCCESS);
+        OperationResult result = newInstance(HttpStatus.OK);
         result.setOperationResultCode(operationResultCode);
         return result;
     }
 
     public static OperationResult createSuccessResult() {
-        OperationResult result = newInstance(OperationResultCodeType.SUCCESS);
+        OperationResult result = newInstance(HttpStatus.OK);
         return result;
     }
 
@@ -79,21 +78,11 @@ public class OperationResult extends AbstractGenericType {
         return this;
     }
 
-    public void throwIfErrorResult() {
-        if (OperationResultCodeType.ERROR.equals(this.resultCode)) {
-            throw new OperationResultException(this);
-        }
-    }
-
-    public boolean isSuccessResult() {
-        return OperationResultCodeType.SUCCESS.equals(this.resultCode);
-    }
-
-    public OperationResultCodeType getResultCode() {
+    public HttpStatus getResultCode() {
         return this.resultCode;
     }
 
-    public void setResultCode(OperationResultCodeType resultCode) {
+    public void setResultCode(HttpStatus resultCode) {
         this.resultCode = resultCode;
     }
 

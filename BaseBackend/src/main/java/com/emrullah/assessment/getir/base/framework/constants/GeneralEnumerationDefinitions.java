@@ -10,7 +10,7 @@ public class GeneralEnumerationDefinitions {
         INFO,
         DEACTIVATION_EXIST;
 
-        private OperationResultCodeType() {
+        OperationResultCodeType() {
         }
     }
 
