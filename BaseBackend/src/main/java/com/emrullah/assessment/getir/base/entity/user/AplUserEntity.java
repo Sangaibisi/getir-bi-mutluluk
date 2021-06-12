@@ -9,8 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "apl_users")
 public class AplUserEntity extends AbstractBaseEntity {
 
-    @Id
-    private Long userId;
     private String email;
     private String password;
     private String name;
@@ -21,24 +19,10 @@ public class AplUserEntity extends AbstractBaseEntity {
 
     @PersistenceConstructor
     public AplUserEntity(Long userId, String email, String password, String name, String surname) {
-        this.userId = userId;
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
-    }
-
-    /**
-     * Returns the identifier of the document.
-     *
-     * @return the userId
-     */
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getEmail() {
@@ -84,13 +68,13 @@ public class AplUserEntity extends AbstractBaseEntity {
             return true;
         }
 
-        if (this.userId == null || obj == null || !(this.getClass().equals(obj.getClass()))) {
+        if (this.email == null || obj == null || !(this.getClass().equals(obj.getClass()))) {
             return false;
         }
 
         AplUserEntity that = (AplUserEntity) obj;
 
-        return this.userId.equals(that.getUserId());
+        return this.email.equals(that.getEmail());
     }
 
     /*
@@ -99,7 +83,7 @@ public class AplUserEntity extends AbstractBaseEntity {
      */
     @Override
     public int hashCode() {
-        return userId == null ? 0 : userId.hashCode();
+        return email == null ? 0 : email.hashCode();
     }
 }
 

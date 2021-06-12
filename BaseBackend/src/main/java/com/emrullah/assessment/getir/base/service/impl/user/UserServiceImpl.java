@@ -27,7 +27,6 @@ public class UserServiceImpl implements IUserService {
     public void createUser(CreateUserRequest createUserRequest) {
         // We could perform dto mapping with dozzer
         AplUserEntity aplUser = new AplUserEntity();
-        aplUser.setUserId(1L);
         aplUser.setEmail(createUserRequest.getEmail());
         aplUser.setPassword(passwordEncoder.encode(createUserRequest.getPwd()));
         aplUser.setName(createUserRequest.getName());
