@@ -11,8 +11,8 @@ public class AplUserEntity extends AbstractBaseEntity {
     private Long userId;
     private String email;
     private String password;
-    private Long userTpId;
-    private Long dealerId;
+    private String name;
+    private String surname;
 
     public AplUserEntity() {
     }
@@ -24,7 +24,7 @@ public class AplUserEntity extends AbstractBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name ="USER_ID")
+    @Column(name = "USER_ID")
     public Long getUserId() {
         return userId;
     }
@@ -59,25 +59,27 @@ public class AplUserEntity extends AbstractBaseEntity {
 
     @Basic
     @Column(
-            name = "USER_TP_ID"
+            name = "NAME"
     )
-    public Long getUserTpId() {
-        return userTpId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserTpId(Long userTpId) {
-        this.userTpId = userTpId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
     @Column(
-            name = "DEALER_ID"
+            name = "SURNAME"
     )
-    public Long getDealerId() {
-        return dealerId;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setDealerId(Long dealerId) {
-        this.dealerId = dealerId;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }
+
+
