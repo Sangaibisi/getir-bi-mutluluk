@@ -1,9 +1,11 @@
 package com.emrullah.assessment.getir.base.service.impl.user;
 
+import com.emrullah.assessment.getir.base.dto.user.CreateUserRequest;
 import com.emrullah.assessment.getir.base.entity.user.AplUserEntity;
 import com.emrullah.assessment.getir.base.repository.IAplUserRepository;
 import com.emrullah.assessment.getir.base.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,9 +15,24 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private IAplUserRepository aplUserRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Optional<AplUserEntity> getByEmail(String email) {
         return aplUserRepository.getByEmail(email);
+    }
+
+    @Override
+    public void createUser(CreateUserRequest createUserRequest) {
+        // We could perform dto mapping with dozzer
+        AplUserEntity aplUser = new AplUserEntity();
+        aplUser.setUserId(1L);
+        aplUser.setEmail(createUserRequest.getEmail());
+        aplUser.setPassword(passwordEncoder.encode(createUserRequest.getPwd()));
+        aplUser.setName(createUserRequest.getName());
+        aplUser.setSurname(createUserRequest.getSurname());
+
+        aplUserRepository.save(aplUser);
     }
 }

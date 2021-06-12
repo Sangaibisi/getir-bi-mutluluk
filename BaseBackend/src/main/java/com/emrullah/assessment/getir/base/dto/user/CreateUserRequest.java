@@ -6,8 +6,8 @@ public class CreateUserRequest extends AbstractGenericType {
 
     private String email;
     private String pwd;
-    private Long dealerId;
-    private String userTpCode;
+    private String name;
+    private String surname;
 
     public CreateUserRequest() {
     }
@@ -28,19 +28,19 @@ public class CreateUserRequest extends AbstractGenericType {
         this.pwd = pwd;
     }
 
-    public Long getDealerId() {
-        return dealerId;
+    public String getName() {
+        return name;
     }
 
-    public void setDealerId(Long dealerId) {
-        this.dealerId = dealerId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserTpCode() {
-        return userTpCode;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setUserTpCode(String userTpCode) {
-        this.userTpCode = userTpCode;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }
