@@ -1,13 +1,15 @@
 package com.emrullah.assessment.getir.base.entity.user;
 
 import com.emrullah.assessment.getir.base.entity.AbstractBaseEntity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "APL_USER")
+@Document(collection = "apl_users")
 public class AplUserEntity extends AbstractBaseEntity {
 
+    @Id
     private Long userId;
     private String email;
     private String password;
@@ -17,14 +19,20 @@ public class AplUserEntity extends AbstractBaseEntity {
     public AplUserEntity() {
     }
 
-    public AplUserEntity(String email, String password) {
+    @PersistenceConstructor
+    public AplUserEntity(Long userId, String email, String password, String name, String surname) {
+        this.userId = userId;
         this.email = email;
         this.password = password;
+        this.name = name;
+        this.surname = surname;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USER_ID")
+    /**
+     * Returns the identifier of the document.
+     *
+     * @return the userId
+     */
     public Long getUserId() {
         return userId;
     }
@@ -33,10 +41,6 @@ public class AplUserEntity extends AbstractBaseEntity {
         this.userId = userId;
     }
 
-    @Basic
-    @Column(
-            name = "EMAIL"
-    )
     public String getEmail() {
         return email;
     }
@@ -45,10 +49,6 @@ public class AplUserEntity extends AbstractBaseEntity {
         this.email = email;
     }
 
-    @Basic
-    @Column(
-            name = "PWD"
-    )
     public String getPassword() {
         return password;
     }
@@ -57,10 +57,6 @@ public class AplUserEntity extends AbstractBaseEntity {
         this.password = password;
     }
 
-    @Basic
-    @Column(
-            name = "NAME"
-    )
     public String getName() {
         return name;
     }
@@ -69,16 +65,41 @@ public class AplUserEntity extends AbstractBaseEntity {
         this.name = name;
     }
 
-    @Basic
-    @Column(
-            name = "SURNAME"
-    )
     public String getSurname() {
         return surname;
     }
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+
+        if (this.userId == null || obj == null || !(this.getClass().equals(obj.getClass()))) {
+            return false;
+        }
+
+        AplUserEntity that = (AplUserEntity) obj;
+
+        return this.userId.equals(that.getUserId());
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return userId == null ? 0 : userId.hashCode();
     }
 }
 
