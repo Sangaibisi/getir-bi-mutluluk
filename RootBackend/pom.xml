@@ -12,6 +12,8 @@
     <artifactId>RootBackend</artifactId>
 
     <properties>
+        <packaging>jar</packaging>
+        <start-class>com.emrullah.assessment.getir.root.spring.GetirSpringBootApplication</start-class>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
