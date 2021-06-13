@@ -1,10 +1,10 @@
 package com.emrullah.assessment.getir.base.service.impl.user;
 
 import com.emrullah.assessment.getir.base.dto.user.CreateUserRequest;
-import com.emrullah.assessment.getir.base.entity.user.AplUserEntity;
+import com.emrullah.assessment.getir.base.entity.customer.Customer;
 import com.emrullah.assessment.getir.base.framework.OperationResult;
 import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
-import com.emrullah.assessment.getir.base.repository.IAplUserRepository;
+import com.emrullah.assessment.getir.base.repository.ICustomerRepository;
 import com.emrullah.assessment.getir.base.service.IUserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +19,24 @@ import java.util.Optional;
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    private IAplUserRepository aplUserRepository;
-    @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private ICustomerRepository customerRepository;
 
     @Override
-    public Optional<AplUserEntity> getByEmail(String email) {
-        return aplUserRepository.getByEmail(email);
+    public Optional<Customer> getByEmail(String email) {
+        return customerRepository.getByEmail(email);
     }
 
     @Override
     public void createUser(CreateUserRequest createUserRequest) throws OperationResultException {
         processRequestPreValidations(createUserRequest);
         // We could perform dto mapping with dozzer
-        AplUserEntity aplUser = new AplUserEntity();
+        Customer aplUser = new Customer(createUserRequest.getName(), createUserRequest.getSurname());
         aplUser.setEmail(createUserRequest.getEmail());
         aplUser.setPassword(passwordEncoder.encode(createUserRequest.getPwd()));
-        aplUser.setName(createUserRequest.getName());
-        aplUser.setSurname(createUserRequest.getSurname());
 
-        aplUserRepository.save(aplUser);
+        customerRepository.save(aplUser);
     }
 
     private void processRequestPreValidations(CreateUserRequest createUserRequest) throws OperationResultException {
