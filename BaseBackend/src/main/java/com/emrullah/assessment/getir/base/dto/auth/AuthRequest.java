@@ -1,6 +1,8 @@
 package com.emrullah.assessment.getir.base.dto.auth;
 
-public class AuthRequest {
+import com.emrullah.assessment.getir.base.framework.AbstractGenericType;
+
+public class AuthRequest extends AbstractGenericType {
 
     private String email;
     private String password;

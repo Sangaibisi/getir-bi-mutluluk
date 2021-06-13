@@ -2,7 +2,7 @@ package com.emrullah.assessment.getir.base.framework.constants;
 
 public class GeneralEnumerationDefinitions {
 
-    public static enum OperationResultCodeType {
+    public enum OperationResultCodeType {
         SUCCESS,
         WARNING,
         APPROVED,
@@ -14,4 +14,8 @@ public class GeneralEnumerationDefinitions {
         }
     }
 
+    public enum CustomerAddressType{
+        BILLING,
+        CUSTOMER;
+    }
 }

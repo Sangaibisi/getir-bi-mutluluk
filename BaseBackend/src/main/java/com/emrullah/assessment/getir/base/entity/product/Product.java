@@ -1,8 +1,11 @@
 package com.emrullah.assessment.getir.base.entity.product;
 
 import com.emrullah.assessment.getir.base.entity.AbstractDocument;
+import com.emrullah.assessment.getir.base.entity.customer.Customer;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
@@ -18,10 +21,15 @@ import java.util.Map;
 @Document
 public class Product extends AbstractDocument {
 
-	private final String name;
-	private final String description;
-	private final BigDecimal price;
-	private final Map<String, String> attributes = new HashMap<String, String>();
+	@Field("name")
+	@Indexed(unique = true)
+	private String name;
+	private String description;
+	private BigDecimal price;
+	private BigDecimal stockCount;
+
+	public Product() {
+	}
 
 	/**
 	 * Creates a new {@link Product} with the given name.
@@ -41,7 +49,7 @@ public class Product extends AbstractDocument {
 	 * @param description
 	 */
 	@PersistenceConstructor
-	public Product(String name, BigDecimal price, String description) {
+	public Product(String name, BigDecimal price,  String description) {
 
 		Assert.hasText(name, "Name must not be null or empty!");
 		Assert.isTrue(BigDecimal.ZERO.compareTo(price) < 0, "Price must be greater than zero!");
@@ -52,20 +60,19 @@ public class Product extends AbstractDocument {
 	}
 
 	/**
-	 * Sets the attribute with the given name to the given value.
-	 * 
+	 * Creates a new {@link Product} from the given name and description.
+	 *
 	 * @param name must not be {@literal null} or empty.
-	 * @param value
+	 * @param price must not be {@literal null} or less than or equal to zero.
+	 * @param description
+	 * @param stockCount
 	 */
-	public void setAttribute(String name, String value) {
+	public Product(String name, BigDecimal price, String description, BigDecimal stockCount) {
+		this(name,price,description);
 
-		Assert.hasText(name);
+		Assert.isTrue(BigDecimal.ZERO.compareTo(stockCount) < 0, "Stock count must be greater than zero!");
 
-		if (value == null) {
-			this.attributes.remove(value);
-		} else {
-			this.attributes.put(name, value);
-		}
+		this.stockCount=stockCount;
 	}
 
 	/**
@@ -87,20 +94,51 @@ public class Product extends AbstractDocument {
 	}
 
 	/**
-	 * Returns all the custom attributes of the {@link Product}.
-	 * 
-	 * @return
-	 */
-	public Map<String, String> getAttributes() {
-		return Collections.unmodifiableMap(attributes);
-	}
-
-	/**
 	 * Returns the price of the {@link Product}.
 	 * 
 	 * @return
 	 */
 	public BigDecimal getPrice() {
 		return price;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Sets the {@link Product}'s {@link String}.
+	 *
+	 * @param description must not be {@literal null}.
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * Sets the {@link Product}'s {@link BigDecimal}.
+	 *
+	 * @param price must not be {@literal null}.
+	 */
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	/**
+	 * Returns the {@link Product}'s stock.
+	 *
+	 * @return
+	 */
+	public BigDecimal getStockCount() {
+		return stockCount;
+	}
+
+	/**
+	 * Sets the {@link Product}'s {@link String}.
+	 *
+	 * @param stockCount must not be {@literal null}.
+	 */
+	public void setStockCount(BigDecimal stockCount) {
+		this.stockCount = stockCount;
 	}
 }

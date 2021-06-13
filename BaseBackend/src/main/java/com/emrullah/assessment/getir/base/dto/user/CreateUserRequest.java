@@ -1,6 +1,9 @@
 package com.emrullah.assessment.getir.base.dto.user;
 
 import com.emrullah.assessment.getir.base.framework.AbstractGenericType;
+import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions.*;
+
+import java.util.HashMap;
 
 public class CreateUserRequest extends AbstractGenericType {
 
@@ -8,6 +11,7 @@ public class CreateUserRequest extends AbstractGenericType {
     private String pwd;
     private String name;
     private String surname;
+    private HashMap<CustomerAddressType,String> addresses;
 
     public CreateUserRequest() {
     }
@@ -42,5 +46,13 @@ public class CreateUserRequest extends AbstractGenericType {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public HashMap<CustomerAddressType, String> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(HashMap<CustomerAddressType, String> addresses) {
+        this.addresses = addresses;
     }
 }

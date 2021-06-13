@@ -43,7 +43,7 @@ public class HomeController {
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponse<?>> createUser(@RequestBody CreateUserRequest request) {
         try {
-            _userService.createUser(request);
+            _userService.createCustomer(request);
             return ResponseEntity.noContent().build();
         } catch (OperationResultException ore) {
             return ResponseEntity.status(ore.getOperationResult().getResultCode())

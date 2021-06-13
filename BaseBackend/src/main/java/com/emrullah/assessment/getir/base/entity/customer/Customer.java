@@ -1,14 +1,13 @@
 package com.emrullah.assessment.getir.base.entity.customer;
 
 import com.emrullah.assessment.getir.base.entity.AbstractDocument;
+import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions.CustomerAddressType;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.util.Assert;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
 
 /**
  * A customer.
@@ -24,7 +23,7 @@ public class Customer extends AbstractDocument {
 	@Indexed(unique = true)
 	private String email;
 	private String password;
-	private final Set<String> addresses = new HashSet<String>();
+	private HashMap<CustomerAddressType,String> addresses;
 
 	/**
 	 * Creates a new {@link Customer} from the given firstname and lastname.
@@ -48,12 +47,18 @@ public class Customer extends AbstractDocument {
 	/**
 	 * Adds the given {@link String} to the {@link Customer}.
 	 * 
-	 * @param String must not be {@literal null}.
+	 * @param address must not be {@literal null}.
+	 * @param addressType must not be null
 	 */
-	public void add(String String) {
+	public void addAddress(CustomerAddressType addressType, String address) {
 
-		Assert.notNull(String);
-		this.addresses.add(String);
+		Assert.notNull(address);
+		Assert.notNull(addressType);
+
+		if(this.addresses == null){
+			addresses = new HashMap<>();
+		}
+		this.addresses.put(addressType, address);
 	}
 
 	/**
@@ -106,8 +111,8 @@ public class Customer extends AbstractDocument {
 	 * 
 	 * @return
 	 */
-	public Set<String> getAddresses() {
-		return Collections.unmodifiableSet(addresses);
+	public HashMap<CustomerAddressType,String> getAddresses() {
+		return addresses;
 	}
 
 	/**
@@ -130,5 +135,14 @@ public class Customer extends AbstractDocument {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * Sets the addresses of the {@link Customer}.
+	 *
+	 * @param addresses
+	 */
+	public void setAddresses(HashMap<CustomerAddressType, String> addresses) {
+		this.addresses = addresses;
 	}
 }

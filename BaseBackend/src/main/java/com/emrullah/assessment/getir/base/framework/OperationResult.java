@@ -1,11 +1,8 @@
 package com.emrullah.assessment.getir.base.framework;
 
-import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions.*;
-import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
 import org.springframework.http.HttpStatus;
 
 import java.util.Objects;
-
 
 public class OperationResult extends AbstractGenericType {
     protected HttpStatus resultCode;
