@@ -77,6 +77,6 @@ public class LineItem extends AbstractDocument {
 	 * @return
 	 */
 	public BigDecimal getTotal() {
-		return totalPrice.multiply(BigDecimal.valueOf(amount));
+		return totalPrice;
 	}
 }

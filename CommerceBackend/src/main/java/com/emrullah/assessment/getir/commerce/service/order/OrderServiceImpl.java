@@ -1,5 +1,6 @@
 package com.emrullah.assessment.getir.commerce.service.order;
 
+import com.emrullah.assessment.getir.base.dto.order.MonthlyStaticResponse;
 import com.emrullah.assessment.getir.base.dto.order.OrderRequest;
 import com.emrullah.assessment.getir.base.dto.order.OrderRequestItem;
 import com.emrullah.assessment.getir.base.entity.customer.Customer;
@@ -17,6 +18,7 @@ import com.emrullah.assessment.getir.base.service.IProductService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +40,14 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
+    @Transactional
     public Order processNewOrder(OrderRequest orderRequest) throws OperationResultException {
         runRequestPreValidationSteps(orderRequest);
 
         Customer orderOwner = customerService.getByEmail(orderRequest.getOwner().getEmail());
         String orderShippingAddress = orderOwner.getAddresses().get(orderRequest.getOrderAddressType());
 
-        if(StringUtils.isEmpty(orderShippingAddress))
+        if (StringUtils.isEmpty(orderShippingAddress))
             throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.BAD_REQUEST, "The customer has no record of the given address type."));
 
         Order newOrder = new Order(orderOwner, orderShippingAddress);
@@ -69,15 +72,15 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public Order inquireOrderById(String orderId) throws OperationResultException {
-        if(StringUtils.isEmpty(orderId))
+        if (StringUtils.isEmpty(orderId))
             throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.BAD_REQUEST, "Not a valid id parameter"));
 
         return orderRepository.findById(orderId).orElseThrow(() -> new OperationResultException(OperationResult.createErrorResult(HttpStatus.NOT_FOUND, "Order cannot be found with given id :" + orderId)));
     }
 
     @Override
-    public void checkAndDecrementProductStockCount(Product product, Long requiredCount) throws OperationResultException{
-        if(product == null || product.getStockCount() < 0 || (product.getStockCount() - requiredCount) < 0)
+    public void checkAndDecrementProductStockCount(Product product, Long requiredCount) throws OperationResultException {
+        if (product == null || product.getStockCount() < 0 || (product.getStockCount() - requiredCount) < 0)
             throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.METHOD_NOT_ALLOWED, "Out of stock"));
 
         product.setStockCount(product.getStockCount() - requiredCount);
@@ -85,8 +88,13 @@ public class OrderServiceImpl implements IOrderService {
         productRepository.save(product);
     }
 
-    private void runRequestPreValidationSteps(OrderRequest orderRequest) throws OperationResultException{
-        if(Objects.isNull(orderRequest) || Objects.isNull(orderRequest.getOwner()) || Objects.isNull(orderRequest.getOrderAddressType()) || Objects.isNull(orderRequest.getOrderRequestItems())){
+    @Override
+    public MonthlyStaticResponse inquireMonthlyStatistics() {
+        return null;
+    }
+
+    private void runRequestPreValidationSteps(OrderRequest orderRequest) throws OperationResultException {
+        if (Objects.isNull(orderRequest) || Objects.isNull(orderRequest.getOwner()) || Objects.isNull(orderRequest.getOrderAddressType()) || Objects.isNull(orderRequest.getOrderRequestItems())) {
             throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.BAD_REQUEST, "Request is not valid. Fill the all required params."));
         }
     }

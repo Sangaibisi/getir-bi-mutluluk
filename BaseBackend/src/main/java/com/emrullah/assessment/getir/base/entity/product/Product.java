@@ -70,7 +70,7 @@ public class Product extends AbstractDocument {
 	public Product(String name, BigDecimal price, String description, Long stockCount) {
 		this(name,price,description);
 
-		Assert.isTrue(stockCount < 0, "Stock count must be greater than zero!");
+		Assert.isTrue(stockCount > 0, "Stock count must be greater than zero!");
 
 		this.stockCount = stockCount;
 	}

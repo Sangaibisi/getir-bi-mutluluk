@@ -158,6 +158,6 @@ public class Order extends AbstractDocument {
         if(CollectionUtils.isEmpty(lineItems))
             this.calculatedOrderPrice = 0.0;
 
-       calculatedOrderPrice = lineItems.stream().map(LineItem::getUnitPrice).mapToDouble(BigDecimal::doubleValue).sum();
+       calculatedOrderPrice = lineItems.stream().map(LineItem::getTotal).mapToDouble(BigDecimal::doubleValue).sum();
     }
 }
