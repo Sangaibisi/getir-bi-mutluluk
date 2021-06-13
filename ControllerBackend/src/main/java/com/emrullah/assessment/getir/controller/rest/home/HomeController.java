@@ -5,7 +5,7 @@ import com.emrullah.assessment.getir.base.dto.user.CreateUserRequest;
 import com.emrullah.assessment.getir.base.framework.GenericResponse;
 import com.emrullah.assessment.getir.base.framework.OperationResult;
 import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
-import com.emrullah.assessment.getir.base.service.IUserService;
+import com.emrullah.assessment.getir.base.service.ICustomerService;
 import com.emrullah.assessment.getir.base.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class HomeController {
 
     @Autowired
-    private IUserService _userService;
+    private ICustomerService _userService;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired

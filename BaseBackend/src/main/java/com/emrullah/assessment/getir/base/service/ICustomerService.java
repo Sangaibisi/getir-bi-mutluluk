@@ -6,7 +6,7 @@ import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultEx
 
 import java.util.Optional;
 
-public interface IUserService {
+public interface ICustomerService {
     Optional<Customer> getByEmail(String email);
     void createUser(CreateUserRequest createUserRequest) throws OperationResultException;
 }

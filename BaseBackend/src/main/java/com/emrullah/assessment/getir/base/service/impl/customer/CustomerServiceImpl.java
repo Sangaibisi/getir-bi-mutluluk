@@ -1,11 +1,11 @@
-package com.emrullah.assessment.getir.base.service.impl.user;
+package com.emrullah.assessment.getir.base.service.impl.customer;
 
 import com.emrullah.assessment.getir.base.dto.user.CreateUserRequest;
 import com.emrullah.assessment.getir.base.entity.customer.Customer;
 import com.emrullah.assessment.getir.base.framework.OperationResult;
 import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
 import com.emrullah.assessment.getir.base.repository.ICustomerRepository;
-import com.emrullah.assessment.getir.base.service.IUserService;
+import com.emrullah.assessment.getir.base.service.ICustomerService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class CustomerServiceImpl implements ICustomerService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
