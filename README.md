@@ -1,11 +1,10 @@
 # getir-bi-mutluluk assessment
-## For open api url ==> http://localhost:5000/swagger-ui/index.html
 
-### For interceptor logging in package com.emrullah.assessment.getir.base.spring.interceptor
+#### Open API url - http://localhost:5000/swagger-ui/index.html
 
-###All documents must extends BaseBackend.src.main.java.com.emrullah.assessment.getir.base.entity.AbstractDocument.java class for audit logging and common props
+Interceptor logging in package com.emrullah.assessment.getir.base.spring.interceptor. All documents must extends BaseBackend.src.main.java.com.emrullah.assessment.getir.base.entity.AbstractDocument.java class for audit logging and common props.
 
-###These endpoints have public access
+These endpoints have public access
             "/v2/api-docs",
             "/swagger-resources",
             "/swagger-resources/**",
