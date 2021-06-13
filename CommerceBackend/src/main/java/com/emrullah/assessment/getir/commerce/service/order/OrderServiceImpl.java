@@ -9,7 +9,7 @@ import com.emrullah.assessment.getir.base.entity.order.LineItem;
 import com.emrullah.assessment.getir.base.entity.order.Order;
 import com.emrullah.assessment.getir.base.entity.product.Product;
 import com.emrullah.assessment.getir.base.framework.OperationResult;
-import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions.*;
+import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions.OrderStatusType;
 import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
 import com.emrullah.assessment.getir.base.repository.IOrderRepository;
 import com.emrullah.assessment.getir.base.repository.IProductRepository;
@@ -22,8 +22,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.GroupOperation;
+import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -99,11 +102,55 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public MonthlyStaticResponse inquireMonthlyStatistics(MonthlyStaticRequest request) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("createdDate").lt(request.geteDate().toInstant()).gt(request.getsDate().toInstant()));
-        List<Order> orderList = mongoTemplate.find(query,Order.class);
-        return new MonthlyStaticResponse(orderList);
+    public List<MonthlyStaticResponse> inquireMonthlyStatistics(MonthlyStaticRequest request) {
+        /* Monthly order statistics mongo query
+                 [{
+                    $match: {
+                        createdDate: {
+                            $gte: ISODate('2020/06')
+                        }
+                    }
+                }, {
+                    $match: {
+                        createdDate: {
+                            $lte: ISODate('2022/07')
+                        }
+                    }
+                }, {
+                    $group: {
+                        _id: {
+                            month: {
+                                $month: "$createdDate"
+                            }
+                        },
+                        totalMonthlyOrderCount: {
+                            $sum: 1
+                        },
+                        totalMonthlyPrice: {
+                            $sum: "$calculatedOrderPrice"
+                        }
+                    }
+                }]
+         */
+
+        ProjectionOperation dateProjection = Aggregation.project()
+                .and("calculatedOrderPrice").as("calculatedOrderPrice")
+                .and("createdDate").extractMonth().as("month");
+
+        GroupOperation groupBy = Aggregation.group("month").first("month").as("month")
+                .sum("calculatedOrderPrice").as("totalMonthlyPrice")
+                .count().as("totalMonthlyOrderCount");
+
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(new Criteria("createdDate").gte(request.getsDate())),
+                Aggregation.match(new Criteria("createdDate").lte(request.geteDate())),
+                dateProjection,
+                groupBy);
+
+        //Convert the aggregation result into a List
+        AggregationResults<MonthlyStaticResponse> groupResults = mongoTemplate.aggregate(aggregation, "order", MonthlyStaticResponse.class);
+
+        return groupResults.getMappedResults();
     }
 
     @Override

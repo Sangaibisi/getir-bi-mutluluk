@@ -27,7 +27,7 @@ public class StatisticsController {
 
     @RequestMapping(value = "/orders", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponse<?>> inquireMonthlyStatistics(@RequestBody MonthlyStaticRequest request) {
-        GenericResponse<MonthlyStaticResponse> genericResponse = new GenericResponse<>();
+        GenericResponse<List<MonthlyStaticResponse>> genericResponse = new GenericResponse<>();
         genericResponse.setData(orderService.inquireMonthlyStatistics(request));
         return ResponseEntity.ok(genericResponse);
     }

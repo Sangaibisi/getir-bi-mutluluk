@@ -1,25 +1,37 @@
 package com.emrullah.assessment.getir.base.dto.order;
 
-import com.emrullah.assessment.getir.base.entity.order.Order;
 import com.emrullah.assessment.getir.base.framework.AbstractGenericType;
 
-import java.util.List;
-
 public class MonthlyStaticResponse extends AbstractGenericType {
-    List<Order> orderList;
+
+    private Double totalMonthlyOrderCount;
+    private Double totalMonthlyPrice;
+    private String month;
 
     public MonthlyStaticResponse() {
     }
 
-    public MonthlyStaticResponse(List<Order> orderList) {
-        this.orderList = orderList;
+    public Double getTotalMonthlyOrderCount() {
+        return totalMonthlyOrderCount;
     }
 
-    public List<Order> getOrderList() {
-        return orderList;
+    public void setTotalMonthlyOrderCount(Double totalMonthlyOrderCount) {
+        this.totalMonthlyOrderCount = totalMonthlyOrderCount;
     }
 
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
+    public Double getTotalMonthlyPrice() {
+        return totalMonthlyPrice;
+    }
+
+    public void setTotalMonthlyPrice(Double totalMonthlyPrice) {
+        this.totalMonthlyPrice = totalMonthlyPrice;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
     }
 }

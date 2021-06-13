@@ -9,11 +9,13 @@ import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumeration
 import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface IOrderService {
     Order processNewOrder(OrderRequest orderRequest) throws OperationResultException;
     Order inquireOrderById(String orderId) throws OperationResultException;
     void checkAndDecrementProductStockCount(Product product, Long requiredCount);
-    MonthlyStaticResponse inquireMonthlyStatistics(MonthlyStaticRequest request);
+    List<MonthlyStaticResponse> inquireMonthlyStatistics(MonthlyStaticRequest request);
     Page<Order> inquireOrdersByOrderStatus(OrderStatusType orderStatus);
 
 }
