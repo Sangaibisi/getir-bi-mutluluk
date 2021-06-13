@@ -5,6 +5,7 @@ import com.emrullah.assessment.getir.base.dto.product.UpdateProductRequest;
 import com.emrullah.assessment.getir.base.entity.product.Product;
 import com.emrullah.assessment.getir.base.framework.GenericResponse;
 import com.emrullah.assessment.getir.base.framework.OperationResult;
+import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
 import com.emrullah.assessment.getir.base.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,9 +38,13 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponse<Product>> updateExistProduct(@RequestBody UpdateProductRequest updateProductRequest) {
-        GenericResponse<Product> genericResponse = new GenericResponse<>();
-        genericResponse.setData(productService.updateProductStock(updateProductRequest));
-        return ResponseEntity.ok(genericResponse);
+    public ResponseEntity<GenericResponse<?>> updateExistProduct(@RequestBody UpdateProductRequest updateProductRequest) {
+        try {
+            GenericResponse<Product> genericResponse = new GenericResponse<>();
+            genericResponse.setData(productService.updateProductStock(updateProductRequest));
+            return ResponseEntity.ok(genericResponse);
+        } catch (OperationResultException ore) {
+            return ResponseEntity.status(ore.getOperationResult().getResultCode()).body(new GenericResponse<>(ore.getOperationResult().getResultCode().value(), ore.getOperationResult()));
+        }
     }
 }

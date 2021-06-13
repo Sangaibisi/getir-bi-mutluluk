@@ -44,7 +44,7 @@ public class ProductServiceImpl implements IProductService {
         Optional<Product> optionalProduct = productRepository.getByName(updateProductRequest.getName());
 
         if(optionalProduct.isEmpty()){
-            throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.BAD_REQUEST, "Given product name does not exist in database."));
+            throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.NOT_FOUND, "Given product name does not exist in database."));
         }
 
         Product updatedProduct = optionalProduct.get();

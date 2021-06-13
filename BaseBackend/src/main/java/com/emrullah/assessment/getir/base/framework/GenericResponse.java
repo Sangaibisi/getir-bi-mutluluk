@@ -1,7 +1,10 @@
 package com.emrullah.assessment.getir.base.framework;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GenericResponse<T> implements Serializable {
 
     private int code;
@@ -34,6 +37,11 @@ public class GenericResponse<T> implements Serializable {
     public GenericResponse(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
+        this.data = data;
+    }
+
+    public GenericResponse(Integer code, T data) {
+        this.code = code;
         this.data = data;
     }
 
