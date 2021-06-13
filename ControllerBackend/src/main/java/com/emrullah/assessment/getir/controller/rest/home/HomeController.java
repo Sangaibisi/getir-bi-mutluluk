@@ -8,6 +8,7 @@ import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultEx
 import com.emrullah.assessment.getir.base.service.ICustomerService;
 import com.emrullah.assessment.getir.base.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +53,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> login(@RequestBody AuthRequest req) {
+    public ResponseEntity<GenericResponse<OperationResult>> login(@RequestBody AuthRequest req) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword())
@@ -61,13 +62,16 @@ public class HomeController {
             final UserDetails userDetails = authUserDetailsService.loadUserByUsername(req.getEmail());
             final String jwt = JwtUtil.generateToken(userDetails);
 
-            HashMap<String, String> response = new HashMap<>();
-            response.put("access_token", jwt);
+            GenericResponse<OperationResult> genericResponse = new GenericResponse<>();
+            genericResponse.setData(OperationResult.createSuccessResult());
 
-            return ResponseEntity.ok().body(new GenericResponse<>("", response));
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.set("access_token", jwt);
+
+            return ResponseEntity.ok().headers(responseHeaders).body(genericResponse);
         }
         catch (BadCredentialsException | UsernameNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericResponse<OperationResult>(OperationResult.createErrorResult("404","Username or password is not valid")));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new GenericResponse<>(OperationResult.createErrorResult("404", "Username or password is not valid")));
         }
     }
 
