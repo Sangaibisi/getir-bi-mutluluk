@@ -4,6 +4,8 @@
 
 Interceptor logging in package com.emrullah.assessment.getir.base.spring.interceptor. All documents must extends BaseBackend.src.main.java.com.emrullah.assessment.getir.base.entity.AbstractDocument.java class for audit logging and common props.
 
+#### Postman collection request.postman_collection.json
+
 These endpoints have public access
             "/v2/api-docs",
             "/swagger-resources",
