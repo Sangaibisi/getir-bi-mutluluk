@@ -7,6 +7,7 @@ import com.emrullah.assessment.getir.base.framework.GenericResponse;
 import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions;
 import com.emrullah.assessment.getir.base.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ public class StatisticsController {
     }
 
     @RequestMapping(value = "/orders/{orderStatus}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GenericResponse<List<Order>>> inquireOrdersByOrderStatus(@PathVariable GeneralEnumerationDefinitions.OrderStatusType orderStatus) {
-        GenericResponse<List<Order>> genericResponse = new GenericResponse<>();
+    public ResponseEntity<GenericResponse<Page<Order>>> inquireOrdersByOrderStatus(@PathVariable GeneralEnumerationDefinitions.OrderStatusType orderStatus) {
+        GenericResponse<Page<Order>> genericResponse = new GenericResponse<>();
         genericResponse.setData(orderService.inquireOrdersByOrderStatus(orderStatus));
         return ResponseEntity.ok(genericResponse);
     }

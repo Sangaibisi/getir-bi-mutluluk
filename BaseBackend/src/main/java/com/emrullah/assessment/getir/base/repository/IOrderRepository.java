@@ -3,6 +3,8 @@ package com.emrullah.assessment.getir.base.repository;
 import com.emrullah.assessment.getir.base.entity.customer.Customer;
 import com.emrullah.assessment.getir.base.entity.order.Order;
 import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,6 @@ public interface IOrderRepository extends PagingAndSortingRepository<Order, Stri
 	 */
 	List<Order> findByCustomer(Customer customer);
 
-	List<Order> findAllByOrderStatusType(GeneralEnumerationDefinitions.OrderStatusType orderStatus, Pageable pageable);
+	Page<Order> findAllByOrderStatusType(GeneralEnumerationDefinitions.OrderStatusType orderStatus, Pageable pageable);
 
 }

@@ -106,7 +106,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public List<Order> inquireOrdersByOrderStatus(OrderStatusType orderStatus) {
+    public Page<Order> inquireOrdersByOrderStatus(OrderStatusType orderStatus) {
         Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
         return orderRepository.findAllByOrderStatusType(orderStatus,firstPageWithTwoElements);
     }
