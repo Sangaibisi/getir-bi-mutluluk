@@ -5,17 +5,28 @@ public class GeneralEnumerationDefinitions {
     public enum OperationResultCodeType {
         SUCCESS,
         WARNING,
-        APPROVED,
         ERROR,
-        INFO,
-        DEACTIVATION_EXIST;
+        INFO;
 
         OperationResultCodeType() {
         }
     }
 
-    public enum CustomerAddressType{
+    public enum CustomerAddressType {
         BILLING,
         CUSTOMER;
+
+        CustomerAddressType() {
+        }
+    }
+
+    public enum OrderStatusType {
+        APPROVED,
+        ORDER_SHIPPED,
+        ORDER_CONFIRMED,
+        FULL_FINISHED;
+
+        OrderStatusType() {
+        }
     }
 }
