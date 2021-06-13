@@ -10,6 +10,7 @@ import com.emrullah.assessment.getir.base.repository.IOrderRepository;
 import com.emrullah.assessment.getir.base.service.ICustomerService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -32,24 +33,28 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Customer getByEmail(String email) throws OperationResultException{
+    public Customer getByEmail(String email) throws OperationResultException {
         return customerRepository.getByEmail(email).orElseThrow(() -> new OperationResultException(OperationResult.createErrorResult(HttpStatus.NOT_ACCEPTABLE, "No valid request.")));
     }
 
     @Override
     public void createCustomer(CreateUserRequest createUserRequest) throws OperationResultException {
         processRequestPreValidations(createUserRequest);
-        // We could perform dto mapping with dozzer
-        Customer newCustomer = new Customer(createUserRequest.getName(), createUserRequest.getSurname());
-        newCustomer.setEmail(createUserRequest.getEmail());
-        newCustomer.setPassword(passwordEncoder.encode(createUserRequest.getPwd()));
-        newCustomer.setAddresses(createUserRequest.getAddresses());
+        try {
+            // We could perform dto mapping with dozzer
+            Customer newCustomer = new Customer(createUserRequest.getName(), createUserRequest.getSurname());
+            newCustomer.setEmail(createUserRequest.getEmail());
+            newCustomer.setPassword(passwordEncoder.encode(createUserRequest.getPwd()));
+            newCustomer.setAddresses(createUserRequest.getAddresses());
 
-        customerRepository.save(newCustomer);
+            customerRepository.save(newCustomer);
+        } catch (DuplicateKeyException e) {
+            throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.CONFLICT, "There is a already user with same email : " + createUserRequest.getEmail()));
+        }
     }
 
     @Override
-    public List<Order> retrieveCustomerOrdersByEmail(String email) throws OperationResultException{
+    public List<Order> retrieveCustomerOrdersByEmail(String email) throws OperationResultException {
         Customer customer = this.getByEmail(email);
         return orderRepository.findByCustomer(customer);
     }

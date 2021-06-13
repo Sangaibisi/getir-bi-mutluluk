@@ -8,6 +8,7 @@ import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultEx
 import com.emrullah.assessment.getir.base.repository.IProductRepository;
 import com.emrullah.assessment.getir.base.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +26,17 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public OperationResult createProduct(CreateProductRequest createProductRequest) {
-        Product newProductEntity = new Product(createProductRequest.getName(), createProductRequest.getPrice(), createProductRequest.getDescription(), createProductRequest.getStockCount());
-        productRepository.save(newProductEntity);
-        OperationResult operationResult = OperationResult.newInstance(HttpStatus.ACCEPTED, newProductEntity.getName());
-        operationResult.setResultCode(HttpStatus.ACCEPTED);
-        operationResult.setVersion(newProductEntity.getId().longValue());
+        try {
+            Product newProductEntity = new Product(createProductRequest.getName(), createProductRequest.getPrice(), createProductRequest.getDescription(), createProductRequest.getStockCount());
+            productRepository.save(newProductEntity);
+            OperationResult operationResult = OperationResult.newInstance(HttpStatus.ACCEPTED, newProductEntity.getName());
+            operationResult.setResultCode(HttpStatus.ACCEPTED);
+            operationResult.setVersion(newProductEntity.getId().longValue());
 
-        return operationResult;
+            return operationResult;
+        } catch (DuplicateKeyException e) {
+            return OperationResult.createErrorResult(HttpStatus.CONFLICT, "There is a already product with same name : " + createProductRequest.getName());
+        }
     }
 
     @Override
