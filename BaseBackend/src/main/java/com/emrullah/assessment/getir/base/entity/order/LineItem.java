@@ -14,8 +14,10 @@ public class LineItem extends AbstractDocument {
 
 	@DBRef
 	private Product product;
-	private BigDecimal price;
+	private BigDecimal totalPrice;
 	private int amount;
+
+	public LineItem() {	}
 
 	/**
 	 * Creates a new {@link LineItem} for the given {@link Product}.
@@ -39,11 +41,7 @@ public class LineItem extends AbstractDocument {
 
 		this.product = product;
 		this.amount = amount;
-		this.price = product.getPrice();
-	}
-
-	public LineItem() {
-
+		this.totalPrice = product.getPrice().multiply(BigDecimal.valueOf(amount));
 	}
 
 	/**
@@ -70,7 +68,7 @@ public class LineItem extends AbstractDocument {
 	 * @return the price
 	 */
 	public BigDecimal getUnitPrice() {
-		return price;
+		return this.product.getPrice();
 	}
 
 	/**
@@ -79,6 +77,6 @@ public class LineItem extends AbstractDocument {
 	 * @return
 	 */
 	public BigDecimal getTotal() {
-		return price.multiply(BigDecimal.valueOf(amount));
+		return totalPrice.multiply(BigDecimal.valueOf(amount));
 	}
 }

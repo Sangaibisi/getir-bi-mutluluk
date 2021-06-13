@@ -9,7 +9,7 @@ public class CreateProductRequest extends AbstractGenericType {
     private String name;
     private String description;
     private BigDecimal price;
-    private BigDecimal stockCount;
+    private Long stockCount;
 
     public CreateProductRequest() {
     }
@@ -20,11 +20,11 @@ public class CreateProductRequest extends AbstractGenericType {
         this.price = price;
     }
 
-    public BigDecimal getStockCount() {
+    public Long getStockCount() {
         return stockCount;
     }
 
-    public void setStockCount(BigDecimal stockCount) {
+    public void setStockCount(Long stockCount) {
         this.stockCount = stockCount;
     }
 

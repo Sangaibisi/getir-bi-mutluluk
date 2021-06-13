@@ -1,19 +1,17 @@
 package com.emrullah.assessment.getir.base.dto.product;
 
-import java.math.BigDecimal;
-
 public class UpdateProductRequest extends CreateProductRequest {
 
-    private BigDecimal currentStockCount;
+    private Long currentStockCount;
 
     public UpdateProductRequest() {
     }
 
-    public BigDecimal getCurrentStockCount() {
+    public Long getCurrentStockCount() {
         return currentStockCount;
     }
 
-    public void setCurrentStockCount(BigDecimal currentStockCount) {
+    public void setCurrentStockCount(Long currentStockCount) {
         this.currentStockCount = currentStockCount;
     }
 }

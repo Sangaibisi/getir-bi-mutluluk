@@ -2,6 +2,7 @@ package com.emrullah.assessment.getir.base.dto.order;
 
 import com.emrullah.assessment.getir.base.dto.user.CreateUserRequest;
 import com.emrullah.assessment.getir.base.framework.AbstractGenericType;
+import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions;
 
 import java.util.List;
 
@@ -9,8 +10,7 @@ public class OrderRequest extends AbstractGenericType {
 
     private List<OrderRequestItem> orderRequestItems;
     private CreateUserRequest owner;
-    private String shippedAddress;
-    private String orderStatus;
+    private GeneralEnumerationDefinitions.CustomerAddressType orderAddressType;
 
     public OrderRequest() {
     }
@@ -31,19 +31,11 @@ public class OrderRequest extends AbstractGenericType {
         this.owner = owner;
     }
 
-    public String getShippedAddress() {
-        return shippedAddress;
+    public GeneralEnumerationDefinitions.CustomerAddressType getOrderAddressType() {
+        return orderAddressType;
     }
 
-    public void setShippedAddress(String shippedAddress) {
-        this.shippedAddress = shippedAddress;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setOrderAddressType(GeneralEnumerationDefinitions.CustomerAddressType orderAddressType) {
+        this.orderAddressType = orderAddressType;
     }
 }

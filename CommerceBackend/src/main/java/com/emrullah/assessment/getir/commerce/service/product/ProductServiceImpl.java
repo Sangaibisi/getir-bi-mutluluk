@@ -7,6 +7,7 @@ import com.emrullah.assessment.getir.base.framework.OperationResult;
 import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
 import com.emrullah.assessment.getir.base.repository.IProductRepository;
 import com.emrullah.assessment.getir.base.service.IProductService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -64,6 +65,14 @@ public class ProductServiceImpl implements IProductService {
         if(productId == null)
             throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.BAD_REQUEST, "Not a valid id parameter"));
 
-        return productRepository.findById(productId).orElseThrow(() -> new OperationResultException(OperationResult.createErrorResult(HttpStatus.NOT_FOUND, "Order cannot be found with given id :" + productRepository)));
+        return productRepository.findById(productId).orElseThrow(() -> new OperationResultException(OperationResult.createErrorResult(HttpStatus.NOT_FOUND, "Order cannot be found with given id :" + productId)));
+    }
+
+    @Override
+    public Product inquireProductByName(String name) {
+        if(StringUtils.isEmpty(name))
+            throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.BAD_REQUEST, "Not a valid name parameter"));
+
+        return productRepository.getByName(name).orElseThrow(() -> new OperationResultException(OperationResult.createErrorResult(HttpStatus.NOT_FOUND, "Order cannot be found with given name :" + name)));
     }
 }

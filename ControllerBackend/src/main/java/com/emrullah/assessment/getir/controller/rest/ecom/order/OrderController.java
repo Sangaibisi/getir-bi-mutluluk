@@ -20,7 +20,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @RequestMapping(value = "/purchase", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/purchase", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GenericResponse<Order>> retrieveCustomerOrders(@RequestBody OrderRequest request) {
         GenericResponse<Order> genericResponse = new GenericResponse<>();
         genericResponse.setData(orderService.processNewOrder(request));

@@ -5,7 +5,7 @@ import com.emrullah.assessment.getir.base.framework.AbstractGenericType;
 public class OrderRequestItem extends AbstractGenericType {
 
     private String productName;
-    private String count;
+    private Long count;
 
     public OrderRequestItem() {
     }
@@ -18,11 +18,11 @@ public class OrderRequestItem extends AbstractGenericType {
         this.productName = productName;
     }
 
-    public String getCount() {
+    public Long getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(Long count) {
         this.count = count;
     }
 }

@@ -26,7 +26,7 @@ public class Product extends AbstractDocument {
 	private String name;
 	private String description;
 	private BigDecimal price;
-	private BigDecimal stockCount;
+	private Long stockCount;
 
 	public Product() {
 	}
@@ -67,12 +67,12 @@ public class Product extends AbstractDocument {
 	 * @param description
 	 * @param stockCount
 	 */
-	public Product(String name, BigDecimal price, String description, BigDecimal stockCount) {
+	public Product(String name, BigDecimal price, String description, Long stockCount) {
 		this(name,price,description);
 
-		Assert.isTrue(BigDecimal.ZERO.compareTo(stockCount) < 0, "Stock count must be greater than zero!");
+		Assert.isTrue(stockCount < 0, "Stock count must be greater than zero!");
 
-		this.stockCount=stockCount;
+		this.stockCount = stockCount;
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class Product extends AbstractDocument {
 	 *
 	 * @return
 	 */
-	public BigDecimal getStockCount() {
+	public Long getStockCount() {
 		return stockCount;
 	}
 
@@ -138,7 +138,7 @@ public class Product extends AbstractDocument {
 	 *
 	 * @param stockCount must not be {@literal null}.
 	 */
-	public void setStockCount(BigDecimal stockCount) {
+	public void setStockCount(Long stockCount) {
 		this.stockCount = stockCount;
 	}
 
