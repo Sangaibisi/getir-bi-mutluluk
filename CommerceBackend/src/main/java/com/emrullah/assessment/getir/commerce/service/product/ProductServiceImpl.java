@@ -40,7 +40,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Product updateProductStock(UpdateProductRequest updateProductRequest) throws OperationResultException {
+    public Product updateProduct(UpdateProductRequest updateProductRequest) throws OperationResultException {
         Optional<Product> optionalProduct = productRepository.getByName(updateProductRequest.getName());
 
         if(optionalProduct.isEmpty()){

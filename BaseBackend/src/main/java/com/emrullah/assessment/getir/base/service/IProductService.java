@@ -8,5 +8,5 @@ import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultEx
 
 public interface IProductService {
     OperationResult createProduct(CreateProductRequest createProductRequest);
-    Product updateProductStock(UpdateProductRequest createProductRequest) throws OperationResultException;
+    Product updateProduct(UpdateProductRequest createProductRequest) throws OperationResultException;
 }
