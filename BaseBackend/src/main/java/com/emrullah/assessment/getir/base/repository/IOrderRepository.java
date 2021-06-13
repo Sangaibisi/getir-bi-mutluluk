@@ -2,6 +2,7 @@ package com.emrullah.assessment.getir.base.repository;
 
 import com.emrullah.assessment.getir.base.entity.customer.Customer;
 import com.emrullah.assessment.getir.base.entity.order.Order;
+import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -22,4 +23,7 @@ public interface IOrderRepository extends PagingAndSortingRepository<Order, Stri
 	 * @return
 	 */
 	List<Order> findByCustomer(Customer customer);
+
+	List<Order> findAllByOrderStatusType(GeneralEnumerationDefinitions.OrderStatusType orderStatus);
+
 }

@@ -8,7 +8,7 @@ import com.emrullah.assessment.getir.base.entity.order.LineItem;
 import com.emrullah.assessment.getir.base.entity.order.Order;
 import com.emrullah.assessment.getir.base.entity.product.Product;
 import com.emrullah.assessment.getir.base.framework.OperationResult;
-import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions;
+import com.emrullah.assessment.getir.base.framework.constants.GeneralEnumerationDefinitions.*;
 import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultException;
 import com.emrullah.assessment.getir.base.repository.IOrderRepository;
 import com.emrullah.assessment.getir.base.repository.IProductRepository;
@@ -62,7 +62,7 @@ public class OrderServiceImpl implements IOrderService {
             newOrder.addOrderItem(orderItem);
         }
 
-        newOrder.setOrderStatusType(GeneralEnumerationDefinitions.OrderStatusType.APPROVED);
+        newOrder.setOrderStatusType(OrderStatusType.APPROVED);
         newOrder.calculateOrderTotalPrice();
 
         orderRepository.save(newOrder);
@@ -91,6 +91,11 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public MonthlyStaticResponse inquireMonthlyStatistics() {
         return null;
+    }
+
+    @Override
+    public List<Order> inquireOrdersByOrderStatus(OrderStatusType orderStatus) {
+        return orderRepository.findAllByOrderStatusType(orderStatus);
     }
 
     private void runRequestPreValidationSteps(OrderRequest orderRequest) throws OperationResultException {
