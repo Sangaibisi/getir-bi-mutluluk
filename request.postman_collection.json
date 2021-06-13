@@ -1,0 +1,344 @@
+{
+	"info": {
+		"_postman_id": "4925eaf7-a6e6-4d0f-a576-1eb0c808ab30",
+		"name": "home",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/ecom/home/status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/home/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/ecom/home/register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"emrullahyildirim@windowslive.com\",\r\n    \"pwd\":\"07081968.eY\",\r\n    \"name\":\"Emrullah\",\r\n    \"surname\":\"YILDIRIM\",\r\n    \"addresses\": {\r\n    \"CUSTOMER\": \"My home addresss\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/home/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/ecom/home/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"emrullahyildirim@windowslive.com\",\r\n    \"password\":\"07081968.eY\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/home/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"home",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/ecom/product/update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXJ1bGxhaHlpbGRpcmltQHdpbmRvd3NsaXZlLmNvbSIsImV4cCI6MTYyMzYzMjc0NywiaWF0IjoxNjIzNTk2NzQ3fQ.oYPK1GICZ7hgT9yzr6x9gwKb6HTcksz0Yh_YkKnqKus",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Second Book\",\r\n    \"description\":\"Unkown author 2\",\r\n    \"price\":14,\r\n    \"currentStockCount\":3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/ecom/product/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ecom",
+						"product",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/ecom/product/create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXJ1bGxhaHlpbGRpcmltQHdpbmRvd3NsaXZlLmNvbSIsImV4cCI6MTYyMzY0NTY1NCwiaWF0IjoxNjIzNjA5NjU0fQ.rXEx3GDG6Y5XDiXCESdw0PAXOQlMd27juMdqmezD8s8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Second Book\",\r\n    \"description\":\"Unkown author 2\",\r\n    \"price\":14,\r\n    \"stockCount\":3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/ecom/product/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ecom",
+						"product",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/ecom/product/60c6136a58cf3302b94732ec",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXJ1bGxhaHlpbGRpcmltQHdpbmRvd3NsaXZlLmNvbSIsImV4cCI6MTYyMzYzODM1NCwiaWF0IjoxNjIzNjAyMzU0fQ.Y3Uty9bpoZOQdUyeM-YlcLcF37X2glCYXbS1cT6crGs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/ecom/product/60c6136a58cf3302b94732ec",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ecom",
+						"product",
+						"60c6136a58cf3302b94732ec"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/ecom/order/purchase",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXJ1bGxhaHlpbGRpcmltQHdpbmRvd3NsaXZlLmNvbSIsImV4cCI6MTYyMzY0MTc4OSwiaWF0IjoxNjIzNjA1Nzg5fQ.EGJHLR4KqEcRULa9ML2LKBU3NBrq5ff9hnvL-VhO1zs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderAddressType\": \"CUSTOMER\",\r\n    \"orderRequestItems\": [\r\n        {\r\n            \"count\": 1,\r\n            \"productName\": \"First Book\"\r\n        },\r\n         {\r\n            \"count\": 3,\r\n            \"productName\": \"Second Book\"\r\n        }\r\n    ],\r\n    \"owner\": {\r\n        \"email\": \"emrullahyildirim@windowslive.com\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/ecom/order/purchase",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ecom",
+						"order",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/ecom/statistics",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXJ1bGxhaHlpbGRpcmltQHdpbmRvd3NsaXZlLmNvbSIsImV4cCI6MTYyMzY1MDk3MiwiaWF0IjoxNjIzNjE0OTcyfQ.bEYSjDzQDBkPH4jf7TIzPl66MQN1ksq0kfKauuPlqdk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"eDate\": \"2021-06-13T20:08:05.585Z\",\r\n  \"sDate\": \"2021-00-13T20:08:05.585Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/ecom/statistics/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ecom",
+						"statistics",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/ecom/statistics/orders/APPROVED",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXJ1bGxhaHlpbGRpcmltQHdpbmRvd3NsaXZlLmNvbSIsImV4cCI6MTYyMzY0ODU3NCwiaWF0IjoxNjIzNjEyNTc0fQ.wwyIcOqJXN2e6bKoBg__oZ21H8LPt8mdJ3RPBZsKtrA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/ecom/statistics/orders/APPROVED",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ecom",
+						"statistics",
+						"orders",
+						"APPROVED"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/ecom/order/60c642bda3975e6def80a75b",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbXJ1bGxhaHlpbGRpcmltQHdpbmRvd3NsaXZlLmNvbSIsImV4cCI6MTYyMzY0MTc4OSwiaWF0IjoxNjIzNjA1Nzg5fQ.EGJHLR4KqEcRULa9ML2LKBU3NBrq5ff9hnvL-VhO1zs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/ecom/order/60c642bda3975e6def80a75b",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"ecom",
+						"order",
+						"60c642bda3975e6def80a75b"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
