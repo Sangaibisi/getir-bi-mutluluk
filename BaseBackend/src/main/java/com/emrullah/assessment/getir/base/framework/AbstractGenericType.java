@@ -1,9 +1,11 @@
 package com.emrullah.assessment.getir.base.framework;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class AbstractGenericType extends AbstractSerializableType {
   protected List<Parameter> generalParameterList = null;
 

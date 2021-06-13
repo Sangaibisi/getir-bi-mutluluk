@@ -27,7 +27,11 @@ public class ProductServiceImpl implements IProductService {
     public OperationResult createProduct(CreateProductRequest createProductRequest) {
         Product newProductEntity = new Product(createProductRequest.getName(), createProductRequest.getPrice(), createProductRequest.getDescription(), createProductRequest.getStockCount());
         productRepository.save(newProductEntity);
-        return null;
+        OperationResult operationResult = OperationResult.newInstance(HttpStatus.ACCEPTED, newProductEntity.getName());
+        operationResult.setResultCode(HttpStatus.ACCEPTED);
+        operationResult.setVersion(newProductEntity.getId().longValue());
+
+        return operationResult;
     }
 
     @Override

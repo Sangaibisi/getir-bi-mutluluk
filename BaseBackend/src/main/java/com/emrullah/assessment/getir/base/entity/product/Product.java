@@ -141,4 +141,20 @@ public class Product extends AbstractDocument {
 	public void setStockCount(BigDecimal stockCount) {
 		this.stockCount = stockCount;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		Product that = (Product) obj;
+
+		return this.name.equals(that.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.name.hashCode();
+	}
 }
