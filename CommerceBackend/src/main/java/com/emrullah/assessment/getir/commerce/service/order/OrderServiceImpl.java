@@ -1,5 +1,6 @@
 package com.emrullah.assessment.getir.commerce.service.order;
 
+import com.emrullah.assessment.getir.base.dto.order.MonthlyStaticRequest;
 import com.emrullah.assessment.getir.base.dto.order.MonthlyStaticResponse;
 import com.emrullah.assessment.getir.base.dto.order.OrderRequest;
 import com.emrullah.assessment.getir.base.dto.order.OrderRequestItem;
@@ -16,11 +17,16 @@ import com.emrullah.assessment.getir.base.service.ICustomerService;
 import com.emrullah.assessment.getir.base.service.IOrderService;
 import com.emrullah.assessment.getir.base.service.IProductService;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,12 +37,15 @@ public class OrderServiceImpl implements IOrderService {
     private final ICustomerService customerService;
     private final IProductService productService;
     private final IProductRepository productRepository;
+    private final MongoTemplate mongoTemplate;
 
-    public OrderServiceImpl(IOrderRepository orderRepository, ICustomerService customerService, IProductService productService, IProductRepository productRepository) {
+    @Autowired
+    public OrderServiceImpl(IOrderRepository orderRepository, ICustomerService customerService, IProductService productService, IProductRepository productRepository, MongoTemplate mongoTemplate) {
         this.orderRepository = orderRepository;
         this.customerService = customerService;
         this.productService = productService;
         this.productRepository = productRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     @Override
@@ -89,13 +98,17 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public MonthlyStaticResponse inquireMonthlyStatistics() {
-        return null;
+    public MonthlyStaticResponse inquireMonthlyStatistics(MonthlyStaticRequest request) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("createdDate").lt(request.geteDate().toInstant()).gt(request.getsDate().toInstant()));
+        List<Order> orderList = mongoTemplate.find(query,Order.class);
+        return new MonthlyStaticResponse(orderList);
     }
 
     @Override
     public List<Order> inquireOrdersByOrderStatus(OrderStatusType orderStatus) {
-        return orderRepository.findAllByOrderStatusType(orderStatus);
+        Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
+        return orderRepository.findAllByOrderStatusType(orderStatus,firstPageWithTwoElements);
     }
 
     private void runRequestPreValidationSteps(OrderRequest orderRequest) throws OperationResultException {

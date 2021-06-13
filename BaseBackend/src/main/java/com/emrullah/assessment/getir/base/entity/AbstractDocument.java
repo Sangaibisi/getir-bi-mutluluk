@@ -1,5 +1,6 @@
 package com.emrullah.assessment.getir.base.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.annotation.*;
 
 import java.math.BigInteger;
@@ -12,6 +13,7 @@ import java.util.Date;
  *
  * @author Emrullah YILDIRIM
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AbstractDocument {
 
     @Id
