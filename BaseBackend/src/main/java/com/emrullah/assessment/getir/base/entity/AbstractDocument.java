@@ -1,8 +1,10 @@
 package com.emrullah.assessment.getir.base.entity;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.*;
 
 import java.math.BigInteger;
+import java.time.Instant;
+import java.util.Date;
 
 
 /**
@@ -15,6 +17,18 @@ public class AbstractDocument {
     @Id
     private BigInteger id;
 
+    @CreatedBy
+    private String uuser;
+
+    @CreatedDate
+    private Instant createdDate;
+
+    @LastModifiedBy
+    private String lastModifiedUser;
+
+    @LastModifiedDate
+    private Instant lastModifiedDate;
+
     /**
      * Returns the identifier of the document.
      *
@@ -22,6 +36,42 @@ public class AbstractDocument {
      */
     public BigInteger getId() {
         return id;
+    }
+
+    /**
+     * Returns the creation date of the document.
+     *
+     * @return the date
+     */
+    public String getUuser() {
+        return uuser;
+    }
+
+    /**
+     * Returns the creation date of the document.
+     *
+     * @return the date
+     */
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * Returns the last modification user of the document.
+     *
+     * @return the date
+     */
+    public String getLastModifiedUser() {
+        return lastModifiedUser;
+    }
+
+    /**
+     * Returns the last modification date of the document.
+     *
+     * @return the date
+     */
+    public Instant getLastModifiedDate() {
+        return lastModifiedDate;
     }
 
     /*

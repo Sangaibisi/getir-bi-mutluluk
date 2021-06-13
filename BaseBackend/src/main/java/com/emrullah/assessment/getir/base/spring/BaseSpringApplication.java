@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EntityScan(basePackages = "com.emrullah.assessment.getir.base.entity")
 @EnableWebMvc
 @EnableAutoConfiguration
+@EnableMongoAuditing
 @EnableMongoRepositories(basePackages = "com.emrullah.assessment.getir.base.repository")
 public class BaseSpringApplication {
 }
