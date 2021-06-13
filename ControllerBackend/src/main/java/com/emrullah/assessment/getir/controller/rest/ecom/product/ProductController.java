@@ -10,10 +10,9 @@ import com.emrullah.assessment.getir.base.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping(value = "/ecom/product")
@@ -41,6 +40,17 @@ public class ProductController {
         try {
             GenericResponse<Product> genericResponse = new GenericResponse<>();
             genericResponse.setData(productService.updateProduct(updateProductRequest));
+            return ResponseEntity.ok(genericResponse);
+        } catch (OperationResultException ore) {
+            return ResponseEntity.status(ore.getOperationResult().getResultCode()).body(new GenericResponse<>(ore.getOperationResult().getResultCode().value(), ore.getOperationResult()));
+        }
+    }
+
+    @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GenericResponse<?>> inquireProduct(@PathVariable String productId) {
+        try {
+            GenericResponse<Product> genericResponse = new GenericResponse<>();
+            genericResponse.setData(productService.inquireProductById(productId));
             return ResponseEntity.ok(genericResponse);
         } catch (OperationResultException ore) {
             return ResponseEntity.status(ore.getOperationResult().getResultCode()).body(new GenericResponse<>(ore.getOperationResult().getResultCode().value(), ore.getOperationResult()));

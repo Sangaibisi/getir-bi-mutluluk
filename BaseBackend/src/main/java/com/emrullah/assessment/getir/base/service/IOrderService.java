@@ -6,4 +6,5 @@ import com.emrullah.assessment.getir.base.framework.exceptions.OperationResultEx
 
 public interface IOrderService {
     Order processNewOrder(OrderRequest orderRequest) throws OperationResultException;
+    Order inquireOrderById(String orderId) throws OperationResultException;
 }

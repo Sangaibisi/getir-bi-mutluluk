@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface IProductRepository extends MongoRepository<Product, Long> {
+public interface IProductRepository extends MongoRepository<Product, String> {
     Optional<Product> getByName(String name);
 }

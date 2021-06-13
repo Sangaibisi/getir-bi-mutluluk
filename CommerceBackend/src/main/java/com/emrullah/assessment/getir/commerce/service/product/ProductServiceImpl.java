@@ -58,4 +58,12 @@ public class ProductServiceImpl implements IProductService {
 
         return updatedProduct;
     }
+
+    @Override
+    public Product inquireProductById(String productId) {
+        if(productId == null)
+            throw new OperationResultException(OperationResult.createErrorResult(HttpStatus.BAD_REQUEST, "Not a valid id parameter"));
+
+        return productRepository.findById(productId).orElseThrow(() -> new OperationResultException(OperationResult.createErrorResult(HttpStatus.NOT_FOUND, "Order cannot be found with given id :" + productRepository)));
+    }
 }
