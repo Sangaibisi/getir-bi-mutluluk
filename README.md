@@ -69,18 +69,62 @@ To get a local copy up and running follow these simple example steps. This is an
   mvn clean install
   ```
   
+* Open API Url
+
+
+  ```sh
+  http://localhost:5000/swagger-ui/index.html
+  ```
+  
+* Public end-points
+
+
+  ```sh
+  "/v2/api-docs",
+  "/swagger-resources",
+  "/swagger-resources/**",
+  "/configuration/ui",
+  "/configuration/security",
+  "/swagger-ui.html",
+  "/webjars/**",
+  
+  // -- Swagger UI v3 (OpenAPI)
+  "/v3/api-docs/**",
+  "/swagger-ui/**",
+  
+  // other public endpoints
+  "/home/**"
+  ```            
 
 ## Usage and Roadmap
 
-The project mostly do these things.
+* The project mostly do these things.
 
-- [x] Registering New Customer
-- [x] Placing a new order
-- [x] Query Monthly Statistics
-- [x] Tracking the stock of books
-- [x] List all orders of the customer
-- [x] Viewing the order details
+  - [x] Registering New Customer
+  - [x] Placing a new order
+  - [x] Query Monthly Statistics
+  - [x] Tracking the stock of books
+  - [x] List all orders of the customer
+  - [x] Viewing the order details
 
+* All entities intercepted before DDL operations with ProductBeforeSaveInterceptor. Logged with username who changes the entity when inserts and updates in transaction.
+* Project generic response will be like this. The logged in endpoint is **/home/login**. Will be retrieve jwt token in response header. You need to add Authorization header into your request headers to access private endpoints.
+  ```sh
+  Request:
+    {
+      "email":"username",
+      "password":"password"
+    }
+    
+  Response:
+    {
+      "code": 0,
+      "data": {
+          "resultCode": "OK"
+      }
+    }
+  ```
+* All request/response samples in classpath://request.postman_collection.json
 
 <!-- LICENSE -->
 ## License
