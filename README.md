@@ -70,20 +70,16 @@ To get a local copy up and running follow these simple example steps. This is an
   ```
   
 
-<!-- USAGE EXAMPLES -->
 ## Usage and Roadmap
 
-Use this space to show useful examples of how a project can be used.
+The project mostly do these things.
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-
+- [x] Registering New Customer
+- [x] Placing a new order
+- [x] Query Monthly Statistics
+- [x] Tracking the stock of books
+- [x] List all orders of the customer
+- [x] Viewing the order details
 
 
 <!-- LICENSE -->
