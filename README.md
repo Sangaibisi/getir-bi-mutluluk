@@ -4,34 +4,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![MIT License][license-shield]][license-url]
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
@@ -61,6 +33,8 @@ Use the `README.md` to get started.
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps. This is an example of how to list things you need to use the software and how to install them.
+
+* All request/response samples in sample-request.json file
 
 * Built with Maven
 
@@ -108,7 +82,7 @@ To get a local copy up and running follow these simple example steps. This is an
   - [x] Viewing the order details
 
 * All entities intercepted before DDL operations with ProductBeforeSaveInterceptor. Logged with username who changes the entity when inserts and updates in transaction.
-* Project generic response will be like this. The logged in endpoint is **/home/login**. Will be retrieve jwt token in response header. You need to add Authorization header into your request headers to access private endpoints.
+* Project generic response will be like this. The logged in endpoint is **/home/login**. Will be retrieve jwt token in response header in access_token header. You need to add Authorization header into your request headers to access private endpoints.
   ```sh
   Request:
     {
@@ -124,7 +98,104 @@ To get a local copy up and running follow these simple example steps. This is an
       }
     }
   ```
-* All request/response samples in classpath://request.postman_collection.json
+  
+  * The register endpoint is **/home/register**. Use this sample request when registering. If there is no conflict between username, you will get 204 HTTP status code.
+
+  ```sh
+  Request:
+    {
+      "email":"username",
+      "pwd":"password",
+      "name":"xxx",
+      "surname":"xxx",
+      "addresses": {
+      "CUSTOMER": "My home addresss"
+      }
+    }
+    
+  Response:
+    HTTP STATUS 204
+  ```
+  
+  * For placing new order sample request could be like this. Response type including owner, order items types and also some basic information about order which is ordered time, total prices etc. All the sensitve data encrypted.
+
+  ```sh
+  Request:
+    {
+      "orderAddressType": "CUSTOMER",
+      "orderRequestItems": [
+          {
+              "count": 1,
+              "productName": "First Book"
+          },
+           {
+              "count": 3,
+              "productName": "Second Book"
+          }
+      ],
+      "owner": {
+          "email": "emrullahyildirim@windowslive.com"
+      }
+  }
+
+  Response:
+    {
+    "code": 0,
+    "data": {
+        "id": 30269400385343797540493097233,
+        "uuser": "emrullahyildirim@windowslive.com",
+        "createdDate": 1640907482.333368400,
+        "lastModifiedUser": "emrullahyildirim@windowslive.com",
+        "lastModifiedDate": 1640907482.333368400,
+        "customer": {
+            "id": 29949913410887508294229321012,
+            "firstname": "Emrullah",
+            "lastname": "YILDIRIM",
+            "email": "emrullahyildirim@windowslive.com",
+            "addresses": {
+                "CUSTOMER": "My home address"
+            }
+        },
+        "shippingAddress": "My home address",
+        "lineItems": [
+            {
+                "product": {
+                    "id": 29950019941850259192950502124,
+                    "createdDate": 1623593834.562000000,
+                    "lastModifiedUser": "emrullahyildirim@windowslive.com",
+                    "lastModifiedDate": 1640907482.300367600,
+                    "name": "First Book",
+                    "description": "Unkown author",
+                    "price": 12.25,
+                    "stockCount": 80
+                },
+                "amount": 1,
+                "unitPrice": 12.25,
+                "total": 12.25
+            },
+            {
+                "product": {
+                    "id": 29950314185508158134919546094,
+                    "uuser": "emrullahyildirim@windowslive.com",
+                    "createdDate": 1623609785.176000000,
+                    "lastModifiedUser": "emrullahyildirim@windowslive.com",
+                    "lastModifiedDate": 1640907482.322371200,
+                    "name": "Second Book",
+                    "description": "Unkown author 2",
+                    "price": 14,
+                    "stockCount": 24
+                },
+                "amount": 3,
+                "unitPrice": 14,
+                "total": 42
+            }
+        ],
+        "orderStatusType": "APPROVED",
+        "total": 54.25,
+        "shippingString": "My home address"
+    }
+}
+  ```
 
 <!-- LICENSE -->
 ## License
