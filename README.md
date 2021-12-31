@@ -140,61 +140,61 @@ To get a local copy up and running follow these simple example steps. This is an
 
   Response:
     {
-    "code": 0,
-    "data": {
-        "id": 30269400385343797540493097233,
-        "uuser": "emrullahyildirim@windowslive.com",
-        "createdDate": 1640907482.333368400,
-        "lastModifiedUser": "emrullahyildirim@windowslive.com",
-        "lastModifiedDate": 1640907482.333368400,
-        "customer": {
-            "id": 29949913410887508294229321012,
-            "firstname": "Emrullah",
-            "lastname": "YILDIRIM",
-            "email": "emrullahyildirim@windowslive.com",
-            "addresses": {
-                "CUSTOMER": "My home address"
-            }
-        },
-        "shippingAddress": "My home address",
-        "lineItems": [
-            {
-                "product": {
-                    "id": 29950019941850259192950502124,
-                    "createdDate": 1623593834.562000000,
-                    "lastModifiedUser": "emrullahyildirim@windowslive.com",
-                    "lastModifiedDate": 1640907482.300367600,
-                    "name": "First Book",
-                    "description": "Unkown author",
-                    "price": 12.25,
-                    "stockCount": 80
-                },
-                "amount": 1,
-                "unitPrice": 12.25,
-                "total": 12.25
-            },
-            {
-                "product": {
-                    "id": 29950314185508158134919546094,
-                    "uuser": "emrullahyildirim@windowslive.com",
-                    "createdDate": 1623609785.176000000,
-                    "lastModifiedUser": "emrullahyildirim@windowslive.com",
-                    "lastModifiedDate": 1640907482.322371200,
-                    "name": "Second Book",
-                    "description": "Unkown author 2",
-                    "price": 14,
-                    "stockCount": 24
-                },
-                "amount": 3,
-                "unitPrice": 14,
-                "total": 42
-            }
-        ],
-        "orderStatusType": "APPROVED",
-        "total": 54.25,
-        "shippingString": "My home address"
+      "code": 0,
+      "data": {
+          "id": 30269400385343797540493097233,
+          "uuser": "emrullahyildirim@windowslive.com",
+          "createdDate": 1640907482.333368400,
+          "lastModifiedUser": "emrullahyildirim@windowslive.com",
+          "lastModifiedDate": 1640907482.333368400,
+          "customer": {
+              "id": 29949913410887508294229321012,
+              "firstname": "Emrullah",
+              "lastname": "YILDIRIM",
+              "email": "emrullahyildirim@windowslive.com",
+              "addresses": {
+                  "CUSTOMER": "My home address"
+              }
+          },
+          "shippingAddress": "My home address",
+          "lineItems": [
+              {
+                  "product": {
+                      "id": 29950019941850259192950502124,
+                      "createdDate": 1623593834.562000000,
+                      "lastModifiedUser": "emrullahyildirim@windowslive.com",
+                      "lastModifiedDate": 1640907482.300367600,
+                      "name": "First Book",
+                      "description": "Unkown author",
+                      "price": 12.25,
+                      "stockCount": 80
+                  },
+                  "amount": 1,
+                  "unitPrice": 12.25,
+                  "total": 12.25
+              },
+              {
+                  "product": {
+                      "id": 29950314185508158134919546094,
+                      "uuser": "emrullahyildirim@windowslive.com",
+                      "createdDate": 1623609785.176000000,
+                      "lastModifiedUser": "emrullahyildirim@windowslive.com",
+                      "lastModifiedDate": 1640907482.322371200,
+                      "name": "Second Book",
+                      "description": "Unkown author 2",
+                      "price": 14,
+                      "stockCount": 24
+                  },
+                  "amount": 3,
+                  "unitPrice": 14,
+                  "total": 42
+              }
+          ],
+          "orderStatusType": "APPROVED",
+          "total": 54.25,
+          "shippingString": "My home address"
     }
-}
+
   ```
 
 <!-- LICENSE -->
