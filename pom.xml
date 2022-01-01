@@ -95,6 +95,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>getir-spring-boot</finalName>
 	</build>
 
 </project>
